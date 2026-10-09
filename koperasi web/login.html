@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - Koperasi SB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="login-page">
+
+    <div class="login-background-glow glow-one"></div>
+    <div class="login-background-glow glow-two"></div>
+    <div class="login-background-glow glow-three"></div>
+
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+
+            <a href="index.html" class="logo">
+
+                 <img
+                    src="images/logo.png"
+                    alt="Logo Koperasi"
+                    class="logo-image"
+                >
+
+                <span>
+                    Koperasi<span class="logo-blue">SB</span>
+                </span>
+
+            </a>
+
+
+            <div class="login-header">
+
+                <span class="login-label">
+                    AREA ANGGOTA
+                </span>
+
+                <h1>
+                    Selamat Datang
+                    <span>Kembali</span>
+                </h1>
+
+                <p>
+                    Masuk untuk mengakses akun koperasi Anda.
+                </p>
+
+            </div>
+
+
+            <form id="loginForm" class="login-form">
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username / Email
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Username atau email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Masukkan password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="showPassword"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        <span>Ingat saya</span>
+
+                    </label>
+
+                    <a
+                        href="#"
+                        onclick="forgotPassword(event)"
+                    >
+                        Lupa password?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+                    <span>Masuk ke Akun</span>
+                    <span>→</span>
+                </button>
+
+
+                <div
+                    id="loginMessage"
+                    class="login-message"
+                ></div>
+
+            </form>
+
+
+            <div class="register-link">
+
+                <span>Belum menjadi anggota?</span>
+
+                <a href="daftar.html">
+                    Daftar Sekarang
+                </a>
+
+            </div>
+
+
+            <a href="index.html" class="back-home">
+                ← Kembali ke Beranda
+            </a>
+
+        </div>
+
+    </main>
+
+
+<script>
+
+/* =========================================================
+   SHOW PASSWORD
+========================================================= */
+
+const passwordInput =
+    document.getElementById("password");
+
+const showPassword =
+    document.getElementById("showPassword");
+
+
+showPassword.addEventListener("click", function () {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        showPassword.textContent = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+
+        showPassword.textContent = "👁";
+
+    }
+
+});
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+
+loginForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const inputUsername =
+        document.getElementById("username").value.trim();
+
+    const inputPassword =
+        document.getElementById("password").value;
+
+
+    /* AMBIL AKUN */
+
+    const savedUser =
+        localStorage.getItem("koperasiUser");
+
+
+    /* LOGIN ADMIN DEMO */
+
+    if (
+        inputUsername === "admin" &&
+        inputPassword === "koperasi123"
+    ) {
+
+        localStorage.setItem(
+            "koperasiLogin",
+            "true"
+        );
+
+        loginMessage.className =
+            "login-message success";
+
+        loginMessage.textContent =
+            "Login berhasil!";
+
+
+        setTimeout(function() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 700);
+
+        return;
+
+    }
+
+
+    /* LOGIN AKUN PENDAFTAR */
+
+    if (savedUser) {
+
+        const user =
+            JSON.parse(savedUser);
+
+
+        const usernameMatch =
+            inputUsername === user.username ||
+            inputUsername === user.email;
+
+
+        const passwordMatch =
+            inputPassword === user.password;
+
+
+        if (
+            usernameMatch &&
+            passwordMatch
+        ) {
+
+            localStorage.setItem(
+                "koperasiLogin",
+                "true"
+            );
+
+
+            loginMessage.className =
+                "login-message success";
+
+            loginMessage.textContent =
+                "Login berhasil!";
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }, 700);
+
+
+            return;
+
+        }
+
+    }
+
+
+    /* LOGIN GAGAL */
+
+    loginMessage.className =
+        "login-message error";
+
+    loginMessage.textContent =
+        "Username/email atau password salah.";
+
+});
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+function forgotPassword(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Untuk demo ini, silakan membuat akun baru atau hubungi admin koperasi."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
