@@ -1,0 +1,310 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - Koperasi SB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">K</span>
+
+            <span>
+                Koperasi<span class="logo-blue">SB</span>
+            </span>
+
+        </a>
+
+
+        <div class="nav-actions">
+
+            <span
+                class="member-name"
+                id="memberName"
+            >
+                👤 Anggota
+            </span>
+
+            <button
+                class="logout-button"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+    <div class="container">
+
+
+        <div class="dashboard-header">
+
+            <span class="section-label">
+                DASHBOARD ANGGOTA
+            </span>
+
+            <h1>
+                Selamat Datang,
+                <span id="welcomeName">
+                    Anggota!
+                </span>
+            </h1>
+
+            <p>
+                Kelola informasi dan aktivitas koperasi Anda
+                melalui halaman ini.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-stats">
+
+
+            <div class="dashboard-card">
+
+                <span class="dashboard-card-icon">
+                    💰
+                </span>
+
+                <small>Total Simpanan</small>
+
+                <strong>
+                    Rp 25.750.000
+                </strong>
+
+                <span class="card-status">
+                    ↗ +18,5%
+                </span>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <span class="dashboard-card-icon">
+                    💳
+                </span>
+
+                <small>Pinjaman Aktif</small>
+
+                <strong>
+                    Rp 5.000.000
+                </strong>
+
+                <span class="card-status">
+                    Aktif
+                </span>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <span class="dashboard-card-icon">
+                    ⭐
+                </span>
+
+                <small>SHU Tahun Ini</small>
+
+                <strong>
+                    Rp 1.250.000
+                </strong>
+
+                <span class="card-status">
+                    Estimasi
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    MENU ANGGOTA
+                </span>
+
+                <h2>
+                    Kelola
+                    <span>Akun Anda</span>
+                </h2>
+
+            </div>
+
+
+            <div class="dashboard-menu">
+
+
+                <a href="#" class="dashboard-menu-card">
+
+                    <span>💰</span>
+
+                    <div>
+                        <h3>Simpanan</h3>
+
+                        <p>
+                            Lihat saldo dan riwayat simpanan.
+                        </p>
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+
+                <a href="#" class="dashboard-menu-card">
+
+                    <span>💳</span>
+
+                    <div>
+                        <h3>Pinjaman</h3>
+
+                        <p>
+                            Lihat informasi pinjaman Anda.
+                        </p>
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+
+                <a href="#" class="dashboard-menu-card">
+
+                    <span>📊</span>
+
+                    <div>
+                        <h3>Riwayat Transaksi</h3>
+
+                        <p>
+                            Lihat aktivitas transaksi.
+                        </p>
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+
+                <a href="#" class="dashboard-menu-card">
+
+                    <span>👤</span>
+
+                    <div>
+                        <h3>Profil Saya</h3>
+
+                        <p>
+                            Kelola data profil anggota.
+                        </p>
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   CEK LOGIN
+========================================================= */
+
+if (
+    localStorage.getItem("koperasiLogin")
+    !== "true"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================================================
+   TAMPILKAN NAMA USER
+========================================================= */
+
+const savedUser =
+    localStorage.getItem("koperasiUser");
+
+
+if (savedUser) {
+
+    const user =
+        JSON.parse(savedUser);
+
+
+    document.getElementById(
+        "welcomeName"
+    ).textContent =
+        user.nama + "!";
+
+
+    document.getElementById(
+        "memberName"
+    ).textContent =
+        "👤 " + user.nama;
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "koperasiLogin"
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+</body>
+</html>
+```

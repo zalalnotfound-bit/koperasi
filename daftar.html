@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Daftar Anggota - Koperasi SB</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="login-page">
+
+    <div class="login-background-glow glow-one"></div>
+    <div class="login-background-glow glow-two"></div>
+    <div class="login-background-glow glow-three"></div>
+
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+
+            <!-- LOGO -->
+
+            <a href="index.html" class="logo">
+
+                 <img
+                    src="images/logo.png"
+                    alt="Logo Koperasi"
+                    class="logo-image"
+                >
+
+                <span>
+                    Koperasi<span class="logo-blue">SB</span>
+                </span>
+
+            </a>
+
+
+            <!-- HEADER -->
+
+            <div class="login-header">
+
+                <span class="login-label">
+                    PENDAFTARAN ANGGOTA
+                </span>
+
+                <h1>
+                    Buat
+                    <span>Akun Baru</span>
+                </h1>
+
+                <p>
+                    Daftarkan diri Anda dan menjadi bagian
+                    dari Koperasi Sejahtera Bersama.
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form id="registerForm" class="login-form">
+
+
+                <div class="form-group">
+
+                    <label for="nama">
+                        Nama Lengkap
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="nama"
+                            placeholder="Masukkan nama lengkap"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Masukkan email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">◉</span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Buat username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Buat password"
+                            minlength="6"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="showPassword"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="passwordConfirm">
+                        Konfirmasi Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔐</span>
+
+                        <input
+                            type="password"
+                            id="passwordConfirm"
+                            placeholder="Ulangi password"
+                            minlength="6"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+                    <span>Daftar Sekarang</span>
+                    <span>→</span>
+                </button>
+
+
+                <div
+                    id="registerMessage"
+                    class="login-message"
+                ></div>
+
+            </form>
+
+
+            <div class="register-link">
+
+                <span>Sudah mempunyai akun?</span>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+
+            <a href="index.html" class="back-home">
+                ← Kembali ke Beranda
+            </a>
+
+        </div>
+
+    </main>
+
+
+<script>
+
+/* =========================================================
+   SHOW PASSWORD
+========================================================= */
+
+const password =
+    document.getElementById("password");
+
+const passwordConfirm =
+    document.getElementById("passwordConfirm");
+
+const showPassword =
+    document.getElementById("showPassword");
+
+
+showPassword.addEventListener("click", function () {
+
+    const isPassword =
+        password.type === "password";
+
+    password.type =
+        isPassword ? "text" : "password";
+
+    passwordConfirm.type =
+        isPassword ? "text" : "password";
+
+    showPassword.textContent =
+        isPassword ? "🙈" : "👁";
+
+});
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+const registerForm =
+    document.getElementById("registerForm");
+
+const registerMessage =
+    document.getElementById("registerMessage");
+
+
+registerForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const nama =
+        document.getElementById("nama").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const passwordValue =
+        password.value;
+
+    const confirmValue =
+        passwordConfirm.value;
+
+
+    /* CEK PASSWORD */
+
+    if (passwordValue !== confirmValue) {
+
+        registerMessage.className =
+            "login-message error";
+
+        registerMessage.textContent =
+            "Konfirmasi password tidak sama.";
+
+        return;
+
+    }
+
+
+    /* CEK USERNAME */
+
+    if (username.length < 4) {
+
+        registerMessage.className =
+            "login-message error";
+
+        registerMessage.textContent =
+            "Username minimal 4 karakter.";
+
+        return;
+
+    }
+
+
+    /* SIMPAN DATA AKUN */
+
+    const user = {
+
+        nama: nama,
+
+        email: email,
+
+        username: username,
+
+        password: passwordValue
+
+    };
+
+
+    localStorage.setItem(
+        "koperasiUser",
+        JSON.stringify(user)
+    );
+
+
+    /* LANGSUNG LOGIN */
+
+    localStorage.setItem(
+        "koperasiLogin",
+        "true"
+    );
+
+
+    registerMessage.className =
+        "login-message success";
+
+    registerMessage.textContent =
+        "Pendaftaran berhasil! Mengalihkan...";
+
+
+    /* AUTO MASUK KE INDEX */
+
+    setTimeout(function() {
+
+        window.location.href =
+            "index.html";
+
+    }, 800);
+
+});
+
+</script>
+
+</body>
+</html>
